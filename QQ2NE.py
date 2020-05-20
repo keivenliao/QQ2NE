@@ -13,10 +13,12 @@ from colorama import Fore,Back,Style,init
 init(autoreset=True)
 gcookie = ''
 
+neteasemusicapi='http://192.168.1.202:3000' 
+qqmusicapi='http://192.168.1.202:3300'
 
 
 def netease_login(user,passwd):
-    url = 'http://192.168.1.202:3000/login/cellphone?phone='+user+'&password='+passwd
+    url = neteasemusicapi+'/login/cellphone?phone='+user+'&password='+passwd
     r = requests.get(url)
     team = json.loads(r.text)
     code = team['code']
@@ -32,7 +34,7 @@ def netease_login(user,passwd):
 
     
 def getneplaylist(userid):
-    url = 'http://192.168.1.202:3000/user/playlist?uid='+userid
+    url = neteasemusicapi+'/user/playlist?uid='+userid
     r = requests.get(url)
     team = json.loads(r.text)
     nl = []
@@ -45,7 +47,7 @@ def getneplaylist(userid):
 
 
 def getnesonglist(playlistid):
-    url = 'http://192.168.1.202:3000/playlist/detail?id='+playlistid
+    url = neteasemusicapi+'/playlist/detail?id='+playlistid
     r = requests.get(url)
     team = json.loads(r.text)
     sl = []
@@ -66,7 +68,7 @@ def getnesonglist(playlistid):
 def getnid(sname,aname):
     sname = sname.lower()
     aname = aname.lower()
-    url = 'http://192.168.1.202:3000/search?keywords='+ sname + ' ' + aname
+    url = neteasemusicapi+'/search?keywords='+ sname + ' ' + aname
     r = requests.get(url)
     team = json.loads(r.text)
     try :
@@ -89,7 +91,7 @@ def getnid(sname,aname):
 def getlikenid(sname,aname):
     sname = sname.lower()
     aname = aname.lower()    
-    url = 'http://192.168.1.202:3000/search?keywords='+ sname + ' ' + aname
+    url = neteasemusicapi+'/search?keywords='+ sname + ' ' + aname
     r = requests.get(url)
     team = json.loads(r.text)
     songs_list = team['result']['songs']
@@ -111,7 +113,7 @@ def getlikenid(sname,aname):
 
 
 def addplaylist(songid,playlistid):
-    url = 'http://192.168.1.202:3000/playlist/tracks?op=add&pid='+playlistid+'&tracks='+songid+','+songid
+    url = neteasemusicapi+'/playlist/tracks?op=add&pid='+playlistid+'&tracks='+songid+','+songid
     r = requests.get(url,cookies=gcookie)
     team = json.loads(r.text)
     return team['code']
@@ -120,7 +122,7 @@ def addplaylist(songid,playlistid):
 
 
 def getqqplaylist(qqno):
-    url = 'http://192.168.1.202:3300/user/songlist?id='+qqno
+    url = qqmusicapi+'/user/songlist?id='+qqno
     r = requests.get(url)
     team = json.loads(r.text)
     ql = []
@@ -133,7 +135,7 @@ def getqqplaylist(qqno):
 
 
 def getqqsonglist(playlistid):
-    url = 'http://192.168.1.202:3300/songlist?id='+playlistid
+    url = qqmusicapi+'/songlist?id='+playlistid
     r = requests.get(url)
     team = json.loads(r.text)
     sl = []
@@ -164,7 +166,7 @@ print('''
  也不知道叫啥好，暂定名称： QQ2NE v1.0
  
  keivenliao@gmail.com
-          
+ https://github.com/keivenliao/QQ2NE         
       
       ''')
 
